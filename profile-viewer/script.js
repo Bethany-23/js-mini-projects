@@ -15,6 +15,11 @@ const users = [
         name: "Michelle",
         age: 26,
         bio: "Graphics designer"
+    },
+    {
+        name: "Leah",
+        age: 29,
+        bio: "Entrepreneur: owner of Olea skincare products "
     }
 ];
 
@@ -39,5 +44,5 @@ function prevProfile() {
     showProfile();
 }
 
-// show the first profile when page loads
+
 showProfile();
