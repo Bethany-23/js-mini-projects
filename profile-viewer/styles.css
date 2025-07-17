@@ -1,0 +1,40 @@
+body {
+  font-family: Poppins, sans-serif;
+  background: linear-gradient(135deg, #ff6b6b, #ffe66d); /* red to warm yellow */
+  color: #333;
+  text-align: center;
+  padding: 50px;
+  margin: 0;
+}
+
+h1, h2 {
+  color: #b30000;
+}
+
+#profile {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 30px auto;
+  width: 320px;
+  box-shadow: 0 5px 15px rgba(179, 0, 0, 0.3);
+  color: #b30000;
+  font-size: 1.1rem;
+}
+
+button {
+  background-color: #fff;
+  color: #b30000;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #b30000;
+  color: white;
+}
