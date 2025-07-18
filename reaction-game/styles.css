@@ -21,3 +21,10 @@ body {
   font-size: 1.2rem;
   margin-top: 1rem;
 }
+
+#best-time {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #1de9b6;
+}
