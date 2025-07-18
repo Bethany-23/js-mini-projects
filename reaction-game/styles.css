@@ -1,0 +1,23 @@
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #222;
+  color: #fff;
+  margin: 0;
+  padding: 2rem;
+}
+
+#parent {
+  width: 200px;
+  height: 200px;
+  margin: 2rem auto;
+  background-color: red;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+#message {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
