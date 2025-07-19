@@ -7,12 +7,12 @@ function bmi() {
   const h = parseFloat(height.value);
 
   if (isNaN(w) || isNaN(h) || h <= 0) {
-    display.textContent = "⚠️ Please enter valid weight and height.";
+    display.textContent = " Please enter valid weight and height.";
     display.style.color = "red";
     return;
   }
 
-  const result = w / (h * h);
+  const result = w / (h ** 2);
   let message = "";
 
   if (result <= 19) {
