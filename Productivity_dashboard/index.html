@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1> Productivity Dashboard</h1>
+    <div>
+        <input type="text" id="inputId" placeholder="enter your task here">
+        <input type="date" id="due-date">
+        <button id="add-btn">Add task</button>
+    </div>
+    <select id="category">
+        <option value="Work">Work</option>
+        <option value="Personal">Personal</option>
+        <option value="Study">Study</option>
+    </select>
+    <div>
+        <input type="text" id="search" placeholder="Search tasks">
+    </div>
+
+    <div id="stats">
+    <p>Total Tasks: <span id="total-tasks">0</span></p>
+    <p>Completed: <span id="completed-tasks">0</span></p>
+    <div id="progress-container">
+    <div id="progress-bar"></div>
+    </div>
+    </div>
+
+
+
+    <ul id="task-list"></ul>
+   
+    <script src="script.js"></script>
+</body>
+</html>
