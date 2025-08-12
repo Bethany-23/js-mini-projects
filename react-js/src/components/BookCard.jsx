@@ -1,4 +1,6 @@
 
+import "../css/BookCard.css";
+
 function BookCard({book}){
     function onFavClick(){
         alert("clicked")

@@ -1,0 +1,17 @@
+
+.favorites-page {
+  padding: 2rem;
+  background-color: #fffaf5;
+  text-align: center;
+}
+
+.favorites-page h1 {
+  color: #ff7b00;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.favorites-page p {
+  color: #555;
+  font-size: 1rem;
+}
