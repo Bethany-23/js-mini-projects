@@ -1,20 +1,46 @@
 import BookCard from "../components/BookCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getPopularBooks, searchBooks } from "../services/api";
 import "../css/Home.css";
 
 function Home() {
-    const[searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [books, setBooks] = useState([]);
+  const [error, setError] = useState(null);
+  const [Loading, setLoading] = useState(true);
 
-  const books = [
-    { id: 1, title: "The Great Gatsby", release_date: "2025" },
-    { id: 2, title: "Animal Farm", release_date: "1890" },
-    { id: 3, title: "The sun also rises", release_date: "1977" },
-  ];
+  useEffect(() => {
+    const loadPopularBooks = async () => {
+      try {
+        const popularBooks = await getPopularBooks();
+        setBooks(popularBooks);
+      } catch (err) {
+        console.log(err);
+        setError("failed to load books");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleSearch = (e) => {
-    e.preventDefault()
-    alert(searchQuery)
-    setSearchQuery("------")
+    loadPopularBooks();
+  }, []);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if(!searchQuery.trim())return
+    if(Loading) return
+
+    setLoading(true)
+    try{
+        const searchResults = await searchBooks(searchQuery)
+        setBooks(searchResults)
+        setError(null)
+    }catch (err){
+        console.log(err)
+        setError("failed to search book...")
+    }finally{
+        setLoading(false)
+    }
   };
 
   return (
@@ -25,19 +51,24 @@ function Home() {
           placeholder="Search for books here"
           className="Search-input"
           value={searchQuery}
-          onChange={(e) =>setSearchQuery(e.target.value)}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button type="submit" className="Search-button">
           Search
         </button>
       </form>
 
-      <div className="books-grid">
-        {books.map(
-            (book) => (
-          <BookCard book={book} key={book.id} />
-        ))}
-      </div>
+      {error && <div className="error-message">{error}</div>}
+
+      {Loading ? (
+        <div className="loading">Loading ... </div>
+      ) : (
+        <div className="books-grid">
+          {books.map((book) => (
+            <BookCard book={book} key={book.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
