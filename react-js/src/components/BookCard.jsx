@@ -1,8 +1,14 @@
 import "../css/BookCard.css";
+import { useBookContext } from "../context/BookContext";
 
 function BookCard({ book }) {
-  function onFavClick() {
-    alert("clicked");
+  const { isFavorites, addToFavorites, removeFromFavorites } = useBookContext();
+  const favorite = isFavorites(book.id)
+
+  function onFavClick(e) {
+    e.preventDefault()
+    if(favorite) removeFromFavorites(book.id)
+    else addToFavorites(book)
   }
   return (
     <div className="book-card">
@@ -17,7 +23,7 @@ function BookCard({ book }) {
           alt={book.title}
         />
         <div className="book-overlay">
-          <button className="favorite-btn" onClick={onFavClick}>
+          <button className={`favorite-btn ${favorite ? "active" : ""}`}onClick={onFavClick}>
             ❤
           </button>
         </div>
