@@ -1,0 +1,96 @@
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Background */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4facfe, #43e97b);
+  color: #fff;
+}
+
+/* Card Container */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  text-align: center;
+}
+
+/* Search Section */
+.search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.search button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #0077b6;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search button:hover {
+  background: #0096c7;
+}
+
+/* Weather Info */
+.weather .temp {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weather .city {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Details Section */
+.details {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.col {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 12px;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.col p:first-child {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.col p:last-child {
+  font-size: 14px;
+  opacity: 0.85;
+}
