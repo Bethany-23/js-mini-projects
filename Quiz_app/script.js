@@ -62,9 +62,21 @@ function startQuiz(){
 }
 
 function renderQuestions(){
+    resetState();
     let currentQuestion = questions[currentQuesIndex];
     let questionNo = currentQuesIndex + 1;
     questionElement.innerHTML = questionNo + "." + currentQuestion.question;
 
-    currentQuestion.aswe
+    currentQuestion.answers.forEach(answer =>{
+        const button = document.createElement("button");
+        button.innerHTML = answer.text;
+        button.classList.add("btn");
+        answerButton.appendChild(button);
+    })
 }
+
+function resetState(){
+
+};
+
+startQuiz();
