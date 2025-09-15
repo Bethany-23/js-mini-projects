@@ -1,7 +1,7 @@
 
 import app from "./server";
 import mongodb from "mongodb";
-import ReviewsDAO from "./dao/reviewsDAO";
+//import ReviewsDAO from "./dao/reviewsDAO";
 
 const MongoClient = mongodb.MongoClient;
 const mongo_username = process.env['MONGO_USERNAME'];
