@@ -8,23 +8,25 @@
   </head>
   <body>
     <div>
-      <h3>Welcome to devConnect</h3>
+      <h2>Welcome to devConnect</h2>
       <div>
-        <input
-          type="text"
-          id="_one"
-          placeholder="Enter your username"
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          id="_two"
-          placeholder="Enter your password"
-        />
-      </div>
-      <div>
-        <button id="login">Login</button>
+        <form id="login-form">
+          <div>
+            <input type="email" id="email" placeholder="Email" required />
+          </div>
+          <div>
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div>
+            <button type="submit">Login</button>
+            <p> don't already have an account? <span><a href="./signup.html">Sign up</a></span></p>
+          </div>
+        </form>
       </div>
     </div>
 
