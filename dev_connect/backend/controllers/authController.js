@@ -30,6 +30,26 @@ const signupUser = async (req, res) => {
   }
 };
 
+// Login Controller
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ error: "Invalid email or password" });
 
-module.exports = { signupUser };
+    // Compare plain password with hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ error: "Invalid email or password" });
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, "secretkey", { expiresIn: "1h" });
+
+    res.json({ message: "Login successful", token });
+  } catch (error) {
+    res.status(500).json({ error: "Server error during login" });
+  }
+};
+
+module.exports = { signupUser, loginUser };
