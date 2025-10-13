@@ -1,39 +1,39 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User"); // Import User model
+const bcrypt = require(bcryptjs);
+const jwt = require(jsonwebtoken);
+const User = require("../models/User");
 
 const router = express.Router();
 
-// Signup route
-router.post("/signup", async (req, res) => {
-  try {
-    const { email, password } = req.body; 
+//signup route
 
-    const hashedPassword = await bcrypt.hash(password, 10); 
+router.post("/signup", async(req,res)=>{
+  try{
+    const {email, password} = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({ email, password: hashedPassword }); 
-    await user.save(); 
+    const user = new User({email, password: hashedPassword});
+    await user.save();
 
-    res.json({ message: "User created successfully!" }); 
-  } catch (err) {
-    res.status(400).json({ error: "Signup failed" });
+    res.json({message: "User created successfully!"})
+  }catch(err){
+    res.status(400).json({error: "signup failed!"})
   }
 });
 
-// Login route
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body; 
+//login route
 
-  const user = await User.findOne({ email }); 
-  if (!user) return res.status(400).json({ error: "Invalid email or password" });
+router.post("/login", async(req, res)=>{
+  try{
+    const {email, password} = req.body;
 
-  const isMatch = await bcrypt.compare(password, user.password); 
-  if (!isMatch) return res.status(400).json({ error: "Invalid email or password" });
+    const user = await User.findOne({email});
+    if(!user) return res.status(400).json({error: "invalid email or password"});
 
-  const token = jwt.sign({ id: user._id }, "secretkey", { expiresIn: "1h" }); 
+    const isMatch = await bcrypt.compare(password, userpassword)
 
-  res.json({ token }); 
+  }catch(err){
+    res.status(400).json({error: "Login failed!"})
+  }
 });
-
-module.exports = router;
+module.exports= router;
