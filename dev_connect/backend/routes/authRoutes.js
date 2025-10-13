@@ -10,9 +10,6 @@ router.post("/signup", signup);
 // login user
 router.post("/login", login);
 
-// example protected route
-router.get("/protected", authMiddleware, (req, res) => {
-  res.json({ message: `Welcome, user ${req.user.id}!` });
-});
+
 
 module.exports = router;
