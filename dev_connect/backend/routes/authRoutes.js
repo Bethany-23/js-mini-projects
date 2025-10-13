@@ -1,44 +1,18 @@
 const express = require("express");
-const bcrypt = require(bcryptjs);
-const jwt = require(jsonwebtoken);
-const User = require("../models/User");
+const { signup, login } = require("../controllers/authController");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-//signup route
+// register user
+router.post("/signup", signup);
 
-router.post("/signup", async(req,res)=>{
-  try{
-    const {email, password} = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+// login user
+router.post("/login", login);
 
-    const user = new User({email, password: hashedPassword});
-    await user.save();
-
-    res.json({message: "User created successfully!"})
-  }catch(err){
-    res.status(400).json({error: "signup failed!"})
-  }
+// example protected route
+router.get("/protected", authMiddleware, (req, res) => {
+  res.json({ message: `Welcome, user ${req.user.id}!` });
 });
 
-//login route
-
-router.post("/login", async(req, res)=>{
-  try{
-    const {email, password} = req.body;
-
-    const user = await User.findOne({email});
-    if(!user) return res.status(400).json({error: "invalid email or password"});
-
-    const isMatch = await bcrypt.compare(password, userpassword);
-    if(!isMatch) return res.status(400).json({error: "invalid email or password"});
-
-    const token = jwt.sign({id:user._id}, "secretkey", {expiresIn : "1h"});
-
-    res.json({token});
-
-  }catch(err){
-    res.status(400).json({error: "Login failed!"})
-  }
-});
-module.exports= router;
+module.exports = router;
