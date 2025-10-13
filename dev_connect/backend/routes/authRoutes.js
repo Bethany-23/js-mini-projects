@@ -30,7 +30,12 @@ router.post("/login", async(req, res)=>{
     const user = await User.findOne({email});
     if(!user) return res.status(400).json({error: "invalid email or password"});
 
-    const isMatch = await bcrypt.compare(password, userpassword)
+    const isMatch = await bcrypt.compare(password, userpassword);
+    if(!isMatch) return res.status(400).json({error: "invalid email or password"});
+
+    const token = jwt.sign({id:user._id}, "secretkey", {expiresIn : "1h"});
+
+    res.json({token});
 
   }catch(err){
     res.status(400).json({error: "Login failed!"})
