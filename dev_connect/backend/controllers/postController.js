@@ -1,20 +1,16 @@
 const Post = require("../models/Post");
 
 // CREATE post
-exports.createPost = async (req, res) => {
-  try {
-    const { title, content } = req.body;
-    const newPost = new Post({
-      title,
-      content,
-      createdBy: req.user.id,
-    });
-    await newPost.save();
-    res.json(newPost);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to create post" });
+exports.createPost = async(req, res) =>{
+  try{
+    const {title, content} = req.body;
+    const post = new Post({title, createdBy: req.user.id, content});
+    await post.save();
+    res.json(post);
+  }catch(err){
+    res.status(500).json({error: "Failed to create a post!"})
   }
-};
+}
 
 // READ all posts
 exports.getPosts = async (req, res) => {
