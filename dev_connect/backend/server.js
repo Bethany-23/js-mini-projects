@@ -15,6 +15,8 @@ connectDB();
 
 // routes
 app.use("/api/auth", authRoutes);
+app.use("/api/posts", require("./routes/postRoutes"));
+app.use("/api/comments", require("./routes/commentRoutes"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
