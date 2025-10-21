@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard - DevConnect</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>User Dashboard</h1>
+  <button id="logout">Logout</button>
+
+  <h2>Posts</h2>
+  <ul id="posts-list"></ul>
+
+  <h2>Create Comment</h2>
+  <form id="comment-form">
+    <input type="text" id="comment-text" placeholder="Your comment" required />
+    <select id="post-select"></select>
+    <button type="submit">Submit Comment</button>
+  </form>
+
+  <script src="userDashboard.js"></script>
+</body>
+</html>
