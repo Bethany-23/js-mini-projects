@@ -10,6 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+dotenv.config({ debug: true }); // Enable debug mode
+console.log("MONGO_URI:", process.env.MONGO_URI); // Debug log
 // Connect DB
 connectDB();
 

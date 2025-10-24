@@ -10,7 +10,7 @@ exports.createPost = async(req, res) =>{
   }catch(err){
     res.status(500).json({error: "Failed to create a post!"})
   }
-}
+};
 
 // READ all posts
 exports.getPosts = async (req, res) => {
