@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard - DevConnect</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>User Dashboard</h1>
-  <button id="logout">Logout</button>
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Dashboard</title>
+  </head>
+  <body>
+    <h2>Welcome, User!</h2>
+    <button id="logout">Logout</button>
 
-  <h2>Posts</h2>
-  <ul id="posts-list"></ul>
+    <section id="create-post">
+      <h3>Create a Post</h3>
+      <form id="post-form">
+        <input type="text" id="title" placeholder="Title" required />
+        <textarea id="content" placeholder="Write your post..." required></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
 
-  <h2>Create Comment</h2>
-  <form id="comment-form">
-    <input type="text" id="comment-text" placeholder="Your comment" required />
-    <select id="post-select"></select>
-    <button type="submit">Submit Comment</button>
-  </form>
+    <section id="posts-section">
+      <h3>All Posts</h3>
+      <div id="posts-container"></div>
+    </section>
 
-  <script src="userDashboard.js"></script>
-</body>
+    <script src="./js/userDashboard.js"></script>
+  </body>
 </html>
