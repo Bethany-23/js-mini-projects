@@ -1,0 +1,236 @@
+/* styles/styles.css
+   Minimal, reusable styles for login/signup and dashboards
+   Author: Abi-style clean UI
+*/
+
+/* ---------- Variables ---------- */
+:root{
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --accent: #6c5ce7;       /* purple-ish */
+  --accent-2: #00b894;     /* green-ish for success/links */
+  --danger: #ff6b6b;
+  --shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  --radius: 10px;
+  --gap: 1rem;
+  --max-width: 980px;
+  --text: #0f172a;
+}
+
+/* ---------- Global ---------- */
+* { box-sizing: border-box; }
+html,body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg), #eef2ff 60%);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.45;
+  padding: 24px;
+}
+
+/* center container */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* small helper */
+.row { display:flex; gap:var(--gap); align-items:center; }
+.col { flex:1; }
+
+/* ---------- Card / Panels ---------- */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+/* ---------- Headings ---------- */
+h1, h2, h3 {
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  color: var(--text);
+}
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.15rem; }
+h3 { font-size: 1rem; }
+
+/* ---------- Forms ---------- */
+.form {
+  width: 100%;
+  display: block;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #e6edf3;
+  background: #fff;
+  font-size: 0.95rem;
+  color: var(--text);
+  transition: box-shadow .18s, border-color .18s;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(108,92,231,0.9);
+  box-shadow: 0 6px 18px rgba(108,92,231,0.08);
+}
+
+textarea { min-height: 96px; resize: vertical; }
+
+/* ---------- Buttons ---------- */
+button, .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), #a29bfe);
+  color: white;
+  box-shadow: 0 8px 22px rgba(108,92,231,0.12);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(108,92,231,0.12);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+button:active { transform: translateY(1px); }
+
+/* ---------- Layout specifics ---------- */
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom: 18px;
+}
+
+.logo {
+  font-weight:700;
+  color:var(--accent);
+  font-size:1.05rem;
+}
+
+/* top-right small controls */
+.controls { display:flex; gap:8px; align-items:center; }
+
+/* two-column dashboard layout */
+.dashboard {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* For smaller screens, stack */
+@media (max-width: 880px) {
+  .dashboard { grid-template-columns: 1fr; }
+}
+
+/* left column (profile / create-post form) */
+.sidebar .card { padding: 16px; }
+
+/* main column posts list */
+.posts-list { display:flex; flex-direction:column; gap:14px; }
+.post {
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 6px 20px rgba(15,23,42,0.04);
+  border: 1px solid #f1f5f9;
+}
+.post h4 { margin:0 0 8px 0; font-size:1.02rem;}
+.post p { margin:0 0 12px 0; color: #273043; }
+.post .meta { display:flex; justify-content:space-between; gap:8px; align-items:center; font-size:0.9rem; color:var(--muted); margin-bottom:8px; }
+.post .actions { display:flex; gap:8px; }
+
+/* comment list */
+.comments { margin-top:8px; padding-top:8px; border-top:1px dashed #eef2f7; }
+.comment { display:flex; justify-content:space-between; gap:8px; align-items:flex-start; padding:8px 0; }
+.comment small { color:var(--muted); }
+
+/* form compact */
+.form-row { display:flex; gap:8px; margin-top:8px; }
+.form-row input { flex:1; }
+
+/* small util */
+.kv { color: var(--muted); font-size:0.9rem; }
+
+/* simple footer */
+.footer { margin-top: 20px; text-align:center; color:var(--muted); font-size:0.9rem; }
+
+/* ---------- Login / Register centered card ---------- */
+.auth-page {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height: calc(100vh - 48px);
+  padding: 24px;
+}
+.auth-card {
+  width: 360px;
+  max-width: calc(100% - 40px);
+  padding: 22px;
+}
+.auth-card form { display:flex; flex-direction:column; gap:12px; }
+
+/* subtle link style */
+a { color: var(--accent-2); text-decoration: none; font-weight:600; }
+a:hover { text-decoration:underline; }
+
+/* small badges */
+.badge {
+  display:inline-block;
+  padding:6px 8px;
+  font-size:0.8rem;
+  border-radius:999px;
+  background: rgba(0,184,148,0.12);
+  color: var(--accent-2);
+}
+
+/* Inline utility classes for spacing */
+.mt-8{ margin-top:8px }
+.mt-12{ margin-top:12px }
+.mb-12{ margin-bottom:12px }
+
+/* ---------- accessibility focus ---------- */
+button:focus, input:focus, textarea:focus, select:focus {
+  outline: 3px solid rgba(108,92,231,0.12);
+  outline-offset: 2px;
+}
+
+/* ---------- Minimal print / small screens ---------- */
+@media (max-width:480px){
+  body { padding: 14px; }
+  .header { flex-direction:column; align-items:flex-start; gap:10px; }
+  .logo { font-size:1rem; }
+}
