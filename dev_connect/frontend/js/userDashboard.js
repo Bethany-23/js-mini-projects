@@ -44,6 +44,7 @@ document.getElementById("post-form").addEventListener("submit", async (e) => {
     document.getElementById("post-form").reset();
     loadPosts();
   } else {
+    console.error("Post creation error:", data);
     alert(data.error || "Failed to create post");
   }
 });
@@ -74,32 +75,39 @@ async function loadPosts() {
 
     posts.forEach((post) => {
       const div = document.createElement("div");
+      div.classList.add("post-card");
+
       div.innerHTML = `
         <h4>${post.title}</h4>
         <p>${post.content}</p>
-        <small>by ${post.user?.email || "Unknown"}</small>
+        <small>by ${post.createdBy === user.id ? "You" : post.createdBy}</small>
         ${
-          post.user?._id === user.id
+          post.createdBy === user.id
             ? `<button onclick="editPost('${post._id}', '${post.title}', '${post.content}')">Edit</button>
                <button onclick="deletePost('${post._id}')">Delete</button>`
             : ""
         }
-
-        <div>
+        <div class="comments-section">
           <h5>Comments:</h5>
           <ul id="comments-${post._id}">
-            ${post.comments
-              .map(
-                (c) => `
-              <li>${c.text} - ${c.user?.email || "Anonymous"}
-                ${
-                  c.user?._id === user.id
-                    ? `<button onclick="deleteComment('${post._id}', '${c._id}')">Delete</button>`
-                    : ""
-                }
-              </li>`
-              )
-              .join("")}
+            ${
+              post.comments?.length
+                ? post.comments
+                    .map(
+                      (c) => `
+                    <li>${c.text} - ${
+                        c.createdBy === user.id ? "You" : c.createdBy
+                      }
+                      ${
+                        c.createdBy === user.id
+                          ? `<button onclick="deleteComment('${post._id}', '${c._id}')">Delete</button>`
+                          : ""
+                      }
+                    </li>`
+                    )
+                    .join("")
+                : "<li>No comments yet.</li>"
+            }
           </ul>
           <form onsubmit="addComment(event, '${post._id}')">
             <input type="text" placeholder="Write a comment..." id="comment-${post._id}" required />
@@ -108,6 +116,7 @@ async function loadPosts() {
         </div>
         <hr/>
       `;
+
       container.appendChild(div);
     });
   } catch (err) {
