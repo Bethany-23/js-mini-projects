@@ -159,27 +159,32 @@ async function deletePost(id) {
 }
 
 // 🔹 Add Comment
+// 🔹 Add Comment
 async function addComment(e, postId) {
   e.preventDefault();
   const commentInput = document.getElementById(`comment-${postId}`);
   const text = commentInput.value;
 
-  const res = await fetch(`${apiBase}/comments/${postId}`, {
+  const res = await fetch(`${apiBase}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify({ postId, text }),
   });
+
+  const data = await res.json();
 
   if (res.ok) {
     commentInput.value = "";
     loadPosts();
   } else {
-    alert("Failed to add comment");
+    console.error("Comment error:", data);
+    alert(data.error || "Failed to add comment");
   }
 }
+
 
 // 🔹 Delete Comment
 async function deleteComment(postId, commentId) {
