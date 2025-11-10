@@ -10,7 +10,7 @@ exports.createComment = async (req, res) => {
       createdBy: req.user.id,
     });
     await comment.save();
-    res.json(commentomment);
+    res.json(comment);
   } catch (err) {
     res.status(500).json({ error: "Failed to add comment" });
   }
