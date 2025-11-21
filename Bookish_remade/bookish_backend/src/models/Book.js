@@ -6,5 +6,11 @@ const bookSchema = new mongoose.Schema({
     title: {type:String, required: true},
     author:{type:String, required: true},
     genre: {type:String, required: true},
-    status: {type:String,required: true, enum:["to be read", "reading", "completed"], default: "to be read"}
+    cover: {type:Image},
+    description: {type:String},
+    status: {type:String,required: true, enum:["to be read", "reading", "completed"], default: "to be read"},
+    createdBy: {type:mongoose.Schema.Types.ObjectId, ref: "User", required: true},
+    pages: {type:Number}
 })
+
+module.exports = mongoose.model("Book", bookSchema);
