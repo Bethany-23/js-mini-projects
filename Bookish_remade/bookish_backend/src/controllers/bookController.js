@@ -1,10 +1,13 @@
 
 import Book from "../models/Book";
-import User from "../models/User";
+
 
 exports.toBeRead = async(req,res) =>{
     try{
-
+        const {title, status} = req.body;
+        const book = new Book({title, createdBy: req.user.id, status});
+        await book.save();
+        res.json(book);
     }catch(err){
         res.status(400).json({error: "book not added to this category!"})
     }
