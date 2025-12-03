@@ -1,11 +1,11 @@
 
-import User from "../models/User";
-import Book from "../models/Book";
+
+import Note from "../models/Notes"
 
 exports.addNote = async(req, res) =>{
     try{
-        const {title, createdFor, createdBy}= req.body;
-    
+        const {title,content }= req.body;
+        const note = new Note({title, createdBy:req.user.id, content})
     }catch(err){
         res.status(400).json({error: "adding notes failed!"});
     }
