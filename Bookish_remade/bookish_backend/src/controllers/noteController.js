@@ -4,10 +4,10 @@ import Note from "../models/Notes"
 
 exports.addNote = async(req, res) =>{
     try{
-        const {title,content }= req.body;
-        const note = new Note({title, createdBy:req.user.id, content});
+        const {title, content} = req.body;
+        const note = new Note({title, createdBy: req.user.id, content});
         await note.save();
-        res.json(note);
+        res.json(note)
     }catch(err){
         res.status(400).json({error: "adding notes failed!"});
     }
@@ -15,7 +15,8 @@ exports.addNote = async(req, res) =>{
 
 exports.readNote = async(req,res) =>{
     try{
-        const note = await Note.find().populate("createdBy", "email role")
+        const note = await Note.find().populate("createdBy", "email role");
+        res.json(note)
     }catch(err){
         res.status(400).json({error: "failed to load the notes"})
     }
@@ -23,7 +24,14 @@ exports.readNote = async(req,res) =>{
 
 exports.updateNote = async(req, res)=>{
     try{
-        
+        const {id} = req.params;
+        const {title, content} = req.body;
+        const note = await Note.findByIdAndUpdate(
+            id, 
+            {title, content},
+            {new: true}
+        );
+        res.json(note)
     }catch(err){
         res.status(400).json({error: "updating notes failed!"});
     }
@@ -31,7 +39,9 @@ exports.updateNote = async(req, res)=>{
 
 exports.removeNote = async(req, res) =>{
     try{
-
+        const {id} = req.params;
+        await Note.findByIdAndDelete(id)
+        res.json({message: "note has been deleted"})
     }catch(err){
         res.status(400).json({error: "deleting the notes failed!"})
     }
