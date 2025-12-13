@@ -1,6 +1,6 @@
 
 
-import Note from "../models/Notes"
+import Note from "../models/Note"
 
 exports.addNote = async(req, res) =>{
     try{
