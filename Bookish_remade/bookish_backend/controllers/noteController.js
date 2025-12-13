@@ -1,8 +1,8 @@
 
 
-import Note from "../models/Note"
+import Note from "../models/Note.js"
 
-exports.addNote = async(req, res) =>{
+export const addNote = async(req, res) =>{
     try{
         const {title, content} = req.body;
         const note = new Note({title, createdBy: req.user.id, content});
@@ -13,7 +13,7 @@ exports.addNote = async(req, res) =>{
     }
 };
 
-exports.readNote = async(req,res) =>{
+export const readNote = async(req,res) =>{
     try{
         const note = await Note.find().populate("createdBy", "email role");
         res.json(note)
@@ -22,7 +22,7 @@ exports.readNote = async(req,res) =>{
     }
 }
 
-exports.updateNote = async(req, res)=>{
+export const updateNote = async(req, res)=>{
     try{
         const {id} = req.params;
         const {title, content} = req.body;
@@ -37,7 +37,7 @@ exports.updateNote = async(req, res)=>{
     }
 };
 
-exports.removeNote = async(req, res) =>{
+export const removeNote = async(req, res) =>{
     try{
         const {id} = req.params;
         await Note.findByIdAndDelete(id)

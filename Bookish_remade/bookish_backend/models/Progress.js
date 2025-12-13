@@ -1,8 +1,9 @@
 
 import mongoose from "mongoose";
 
-const progressSchema= new mongoose.Schema({
-user: {
+const progressSchema = new mongoose.Schema(
+  {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true
@@ -12,25 +13,16 @@ user: {
       ref: "Book",
       required: true
     },
-    currentPage: {
-      type: Number,
-      default: 0
-    },
-    totalPages: {
-      type: Number,
-      required: true
-    },
+    currentPage: { type: Number, default: 0 },
+    totalPages: { type: Number, required: true },
+    percentage: { type: Number, default: 0 },
     status: {
       type: String,
       enum: ["unread", "reading", "completed"],
       default: "unread"
-    },
-    percentage: {
-      type: Number,
-      default: 0
     }
-},
-{ timestamps: true }
+  },
+  { timestamps: true }
 );
 
-module.exports = mongoose.model("Progress",progressSchema);
+export default mongoose.model("Progress",progressSchema);
