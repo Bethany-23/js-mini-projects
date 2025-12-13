@@ -1,11 +1,15 @@
-
-import {Router} from "express";
-import{toBeRead, read, reading, removeBook} from "../controllers/bookController.js";
+import { Router } from "express";
+import {
+  createBook,
+  updateBookStatus,
+  deleteBook
+} from "../controllers/bookController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = Router();
-router.post("/",toBeRead);
-router.put("/:id",reading);
-router.put("/:id",read);
-router.delete("/:id",removeBook);
+
+router.post("/", protect, createBook);                 // add book
+router.patch("/:id/status", protect, updateBookStatus); // update status
+router.delete("/:id", protect, deleteBook);            // delete book
 
 export default router;

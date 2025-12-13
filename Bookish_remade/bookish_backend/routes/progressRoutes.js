@@ -1,12 +1,9 @@
+import { Router } from "express";
+import { addProgress } from "../controllers/progressController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
-import {Router} from "express";
-import{addProgress, updateProgress, deleteProgress} from "../controllers/progressController.js";
+const router = Router();
 
-const router = new Router();
-
-router.post("/",addProgress);
-router.put("/:id",updateProgress);
-router.delete("/:id",deleteProgress);
+router.post("/", protect, addProgress);
 
 export default router;
-

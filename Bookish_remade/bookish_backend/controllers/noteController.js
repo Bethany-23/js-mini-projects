@@ -1,48 +1,26 @@
+import Note from "../models/note.js";
 
-
-import Note from "../models/Note.js"
-
-export const addNote = async(req, res) =>{
-    try{
-        const {title, content} = req.body;
-        const note = new Note({title, createdBy: req.user.id, content});
-        await note.save();
-        res.json(note)
-    }catch(err){
-        res.status(400).json({error: "adding notes failed!"});
-    }
+export const addNote = async (req, res) => {
+  const note = await Note.create({
+    ...req.body,
+    createdBy: req.user.id
+  });
+  res.status(201).json(note);
 };
 
-export const readNote = async(req,res) =>{
-    try{
-        const note = await Note.find().populate("createdBy", "email role");
-        res.json(note)
-    }catch(err){
-        res.status(400).json({error: "failed to load the notes"})
-    }
-}
-
-export const updateNote = async(req, res)=>{
-    try{
-        const {id} = req.params;
-        const {title, content} = req.body;
-        const note = await Note.findByIdAndUpdate(
-            id, 
-            {title, content},
-            {new: true}
-        );
-        res.json(note)
-    }catch(err){
-        res.status(400).json({error: "updating notes failed!"});
-    }
+export const getNotes = async (req, res) => {
+  const notes = await Note.find({ createdBy: req.user.id });
+  res.json(notes);
 };
 
-export const removeNote = async(req, res) =>{
-    try{
-        const {id} = req.params;
-        await Note.findByIdAndDelete(id)
-        res.json({message: "note has been deleted"})
-    }catch(err){
-        res.status(400).json({error: "deleting the notes failed!"})
-    }
+export const updateNote = async (req, res) => {
+  const note = await Note.findByIdAndUpdate(req.params.id, req.body, {
+    new: true
+  });
+  res.json(note);
+};
+
+export const deleteNote = async (req, res) => {
+  await Note.findByIdAndDelete(req.params.id);
+  res.json({ message: "Note deleted" });
 };

@@ -1,40 +1,18 @@
+import Progress from "../models/progress.js";
 
-import {Progress} from "../models/Progress.js";
+export const addProgress = async (req, res) => {
+  const { currentPage, totalPages, book } = req.body;
 
-exports.addProgress= async(req,res)=>{
-    try{
-        const {status, pageNumber} = req.body;
-        const progress = new Progress({status, book: req.book.id, pageNumber})
-        await progress.save();
-        res.json(progress);
-    }catch(err){
-        res.json({error: "progress not added!"})
-    }
+  const percentage = Math.round((currentPage / totalPages) * 100);
+
+  const progress = await Progress.create({
+    user: req.user.id,
+    book,
+    currentPage,
+    totalPages,
+    percentage,
+    status: percentage === 100 ? "completed" : "reading"
+  });
+
+  res.status(201).json(progress);
 };
-
-exports.updateProgress = async(req, res) =>{
-    try{
-        const {id} = req.params
-        const {status,pageNumber} = req.body;
-        const progress = await Progress.findByIdAndUpdate(
-            id,
-            {status,pageNumber},
-            {new: true}
-        );
-        res.json(progress);
-    }catch(err){
-        res.json({error: "progress not updated!"})
-    }
-};
-
-exports.deleteProgress = async(req, res) =>{
-    try{
-        const {id} = req.params;
-        const progress = await Progress.findByIdAndDelete(id);
-        res.json({message: "progress deleted successfully"})
-    }catch(err){
-        res.json({error: "progress couldn't get deleted!"})
-    }
-};
-
-
