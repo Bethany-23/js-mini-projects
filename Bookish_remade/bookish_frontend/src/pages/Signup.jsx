@@ -3,7 +3,7 @@ import { signup } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [form, setForm] = useState({ email: "", password: "", username: "" });
+  const [form, setForm] = useState({ email: "", password: "", username: "", role: "user"});
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -43,7 +43,14 @@ const Signup = () => {
         required
         className="border p-2 rounded"
       />
-     
+      <select
+        value={form.role}
+        onChange={(e) => setForm({ ...form, role: e.target.value })}
+        className="border p-2 rounded"
+      >
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
       <button type="submit" className="bg-blue-500 text-white p-2 rounded">
         Signup
       </button>
