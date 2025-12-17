@@ -12,7 +12,11 @@ const Login = () => {
     e.preventDefault();
     const res = await loginApi(form);
     login(res.data.token, res.data.user);
-    navigate("/dashboard");
+    if (res.data.role == "admin") {
+      navigate("/admin-dashboard");
+    }else{
+      navigate("/dashboard")
+    }
   };
 
   return (
