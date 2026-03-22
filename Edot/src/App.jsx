@@ -1,18 +1,21 @@
 import { Router,Route } from "react-router-dom";
-import {Home} from "../src/components/Home.jsx"
-import { Favorties } from "./components/Favorites.jsx";
-import { Details} from "./components/Details.jsx";
-import { Nav } from "./context/Navigation.jsx";
+import {Home} from "./pages/Home.jsx"
+import { Favorties } from "./pages/Favorites.jsx";
+import { Details} from "./pages/Details.jsx";
+import { Nav } from "./components/Navigation.jsx";
 
 function App(){
-  <BrowserRouter>
-  <Nav/>
-  <Routes>
-    <Route path= "/" element={<Home/>}/>
-    <Route path= "/details" element={<Details/>}/>
-    <Route path= "/fav" element={<Favorties/>}/>
-  </Routes>
-  </BrowserRouter>
+  return (
+    <main>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/details" element={<Details />} />
+        <Route path="/fav" element={<Favorties />} />
+      </Routes>
+    </main>
+  );
+ 
 }
 
 export default App;
