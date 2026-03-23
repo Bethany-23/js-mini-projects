@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Details() {
+export  function Details() {
   const { id } = useParams(); // 1. Get the ID from the URL
 
   // 2. Find this specific song in our list of songs (or favorites)

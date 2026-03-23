@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Nav() {
+export  function Nav() {
   // 1. Monitor the length of the favorites array
   const favCount = useSelector((state) => state.favorites.length);
 

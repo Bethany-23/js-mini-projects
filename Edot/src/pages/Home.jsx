@@ -3,7 +3,7 @@ import { useYoutube } from "../hooks/useYoutube";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../features/favoritesSlice";
 
-export default function Home() {
+export  function Home() {
   const [query, setQuery] = useState("");
   const { songs, loading, searchSongs } = useYoutube();
   const dispatch = useDispatch();

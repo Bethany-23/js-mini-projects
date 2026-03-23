@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleFavorite } from "../features/favoritesSlice";
 import { Link } from "react-router-dom";
 
-export default function Favorites() {
+export  function Favorites() {
   // 1. Grab the favorites array from the Global Store
   const favorites = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
