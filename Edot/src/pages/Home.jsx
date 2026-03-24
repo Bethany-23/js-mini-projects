@@ -1,36 +1,43 @@
-import { useState } from "react";
-import { useYoutube } from "../hooks/useYoutube";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorite } from "../features/favoritesSlice";
+import { useState, useEffect } from "react";
+import { fetchSongsWithCache } from "../services/youtube";
+import SongCard from "../components/SongCard";
 
-export  function Home() {
-  const [query, setQuery] = useState("");
-  const { songs, loading, searchSongs } = useYoutube();
-  const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorites);
+export default function Home() {
+  const [songs, setSongs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentSearch, setCurrentSearch] = useState("Orthodox Harp");
+
+  const loadData = async (query) => {
+    setLoading(true);
+    const results = await fetchSongsWithCache(query);
+    setSongs(results);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    loadData(currentSearch);
+  }, [currentSearch]);
 
   return (
-    <div className="home-container">
-      <h1>Music Vault</h1>
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search..."
-      />
-      <button onClick={() => searchSongs(query)}>Search</button>
+    <div className="max-w-6xl mx-auto px-4">
+      {/* Category Header */}
+      <header className="mb-10 text-center">
+        <h1 className="text-4xl font-light mb-2">Spiritual Sanctuary</h1>
+        <p className="opacity-60 italic">Current Mood: {currentSearch}</p>
+      </header>
 
-      {loading && <p>Loading...</p>}
-
-      <div className="song-grid">
-        {songs.map((song) => (
-          <div key={song.id} className="song-card">
-            <p>{song.title}</p>
-            <button onClick={() => dispatch(toggleFavorite(song))}>
-              {favorites.find((f) => f.id === song.id) ? "❤️" : "🤍"}
-            </button>
-          </div>
-        ))}
-      </div>
+      {/* Results Grid */}
+      {loading ? (
+        <div className="flex justify-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {songs.map((song) => (
+            <SongCard key={song.id} song={song} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
