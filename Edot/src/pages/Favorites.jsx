@@ -1,35 +1,31 @@
-import { useSelector, useDispatch } from "react-redux";
-import { toggleFavorite } from "../features/favoritesSlice";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import SongCard from "../components/SongCard";
 
-export  function Favorites() {
-  // 1. Grab the favorites array from the Global Store
-  const favorites = useSelector((state) => state.favorites);
-  const dispatch = useDispatch();
+export default function Favorites() {
+  const { items } = useSelector((state) => state.favorites);
+  const { user } = useSelector((state) => state.auth);
 
-  if (favorites.length === 0) {
+  if (!user)
     return (
-      <p>
-        Your playlist is empty. <Link to="/">Go find some tunes!</Link>
-      </p>
+      <div className="p-20 text-center">Please login to see your Vault.</div>
     );
-  }
 
   return (
-    <div className="favorites-page">
-      <h1>My Favorites ❤️</h1>
-      <div className="song-grid">
-        {favorites.map((song) => (
-          <div key={song.id} className="song-card">
-            <h3>{song.title}</h3>
-            {/* 2. We can even remove them from here! */}
-            <button onClick={() => dispatch(toggleFavorite(song))}>
-              Remove from Favorites
-            </button>
-            <Link to={`/details/${song.id}`}>View Details</Link>
-          </div>
-        ))}
-      </div>
+    <div className="max-w-6xl mx-auto px-4">
+      <h2 className="text-3xl font-light mb-8 border-b border-white/10 pb-4">
+        My Spiritual Collection
+      </h2>
+      {items.length === 0 ? (
+        <p className="opacity-50">
+          Your vault is empty. Start exploring Tizita or Selamta!
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map((song) => (
+            <SongCard key={song.id} song={song} isFavorite={true} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
