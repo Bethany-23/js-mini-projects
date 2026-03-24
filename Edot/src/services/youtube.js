@@ -1,7 +1,7 @@
 import { db } from "./firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
-// This pulls your key from the .env file instead of hardcoding it
+
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
 export const fetchSongsWithCache = async (query) => {
@@ -14,12 +14,12 @@ export const fetchSongsWithCache = async (query) => {
    
     const cacheSnap = await getDoc(cacheRef);
     if (cacheSnap.exists()) {
-      console.log(`📡 Cache Hit for: ${cacheId}`);
+      console.log(` Cache Hit for: ${cacheId}`);
       return cacheSnap.data().results;
     }
 
    
-    console.log(`☁️ Fetching from YouTube API for: ${cacheId}`);
+    console.log(` Fetching from YouTube API for: ${cacheId}`);
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}+orthodox+begena&type=video&key=${API_KEY}&maxResults=10`;
 
     const res = await fetch(url);

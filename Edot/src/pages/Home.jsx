@@ -9,7 +9,7 @@ export default function Home({ category }) {
   useEffect(() => {
     const getSongs = async () => {
       setLoading(true);
-      const query = category || "Orthodox Harp";
+      const query = category || "Orthodox Begena";
       const results = await fetchSongsWithCache(query);
       setSongs(results);
       setLoading(false);

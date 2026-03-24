@@ -52,7 +52,7 @@ export default function Nav({ onCategoryClick }) {
         ))}
 
         {/* Separator */}
-        <div className="w-[1px] h-4 bg-white/10 mx-2"></div>
+        <div className="w-px h-4 bg-white/10 mx-2"></div>
 
         {/* My Vault Link */}
         <Link

@@ -10,7 +10,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-// LOAD: Pull only Bethany's favorites from the Cloud
+// LOAD: Pull only my favorites from the Cloud
 export const fetchFavorites = createAsyncThunk("favs/fetch", async (userId) => {
   const q = query(collection(db, "favorites"), where("userId", "==", userId));
   const snap = await getDocs(q);
@@ -22,7 +22,7 @@ export const toggleFavorite = createAsyncThunk(
   "favs/toggle",
   async ({ song, userId }, { getState }) => {
     const state = getState();
-    // FIX: Point to .items so .find() works
+    
     const favoriteItems = state.favorites.items;
     const existing = favoriteItems.find((f) => f.id === song.id);
 
