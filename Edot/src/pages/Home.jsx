@@ -1,42 +1,30 @@
 import { useState, useEffect } from "react";
 import { fetchSongsWithCache } from "../services/youtube";
-import SongCard from "../components/SongCard";
+import SongCard from "../components/songCard.jsx";
 
-export  function Home() {
+export default function Home({ category }) {
+  // 👈 We take 'category' as a prop
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentSearch, setCurrentSearch] = useState("Orthodox Harp");
-
-  const loadData = async (query) => {
-    setLoading(true);
-    const results = await fetchSongsWithCache(query);
-    setSongs(results);
-    setLoading(false);
-  };
 
   useEffect(() => {
-    loadData(currentSearch);
-  }, [currentSearch]);
+    const getSongs = async () => {
+      setLoading(true);
+      // If no category is clicked, default to general Harp songs
+      const query = category || "Orthodox Harp";
+      const results = await fetchSongsWithCache(query);
+      setSongs(results);
+      setLoading(false);
+    };
+    getSongs();
+  }, [category]); // 👈 Re-run whenever category changes
 
   return (
-    <div className="max-w-6xl mx-auto px-4">
-      {/* Category Header */}
-      <header className="mb-10 text-center">
-        <h1 className="text-4xl font-light mb-2">Spiritual Sanctuary</h1>
-        <p className="opacity-60 italic">Current Mood: {currentSearch}</p>
-      </header>
-
-      {/* Results Grid */}
+    <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
       {loading ? (
-        <div className="flex justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
-        </div>
+        <p>Seeking spiritual melodies...</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {songs.map((song) => (
-            <SongCard key={song.id} song={song} />
-          ))}
-        </div>
+        songs.map((song) => <SongCard key={song.id} song={song} />)
       )}
     </div>
   );

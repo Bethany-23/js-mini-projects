@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function SongCard({ song }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state?.auth?.user);
   const isFav = useSelector((state) =>
     state.favorites.items.some((f) => f.id === song.id),
   );

@@ -1,28 +1,58 @@
 import { db } from "./firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
-const API_KEY = "YOUR_YOUTUBE_KEY";
+// This pulls your key from the .env file instead of hardcoding it
+const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
 export const fetchSongsWithCache = async (query) => {
-  const cacheRef = doc(db, "searchCache", query.toLowerCase());
-  const cacheSnap = await getDoc(cacheRef);
+  if (!query) return [];
 
-  // 1. Check if we searched this recently (Cost: 0 YouTube Units)
-  if (cacheSnap.exists()) return cacheSnap.data().results;
+  const cacheId = query.toLowerCase().trim();
+  const cacheRef = doc(db, "searchCache", cacheId);
 
-  // 2. Otherwise, ask YouTube (Cost: 100 Units)
-  const res = await fetch(
-    `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}+orthodox+harp&type=video&key=${API_KEY}&maxResults=10`,
-  );
-  const data = await res.json();
+  try {
+   
+    const cacheSnap = await getDoc(cacheRef);
+    if (cacheSnap.exists()) {
+      console.log(`📡 Cache Hit for: ${cacheId}`);
+      return cacheSnap.data().results;
+    }
 
-  const results = data.items.map((item) => ({
-    id: item.id.videoId,
-    title: item.snippet.title,
-    thumb: item.snippet.thumbnails.high.url,
-  }));
+   
+    console.log(`☁️ Fetching from YouTube API for: ${cacheId}`);
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}+orthodox+harp&type=video&key=${API_KEY}&maxResults=10`;
 
-  // 3. Save to Firestore so it's free next time!
-  await setDoc(cacheRef, { results, timestamp: Date.now() });
-  return results;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    // SAFETY CHECK: If the API key is wrong or quota is full, Google returns an error object
+    if (data.error) {
+      console.error("YouTube API Error:", data.error.message);
+      return []; // Return empty array so the .map() in your UI doesn't crash
+    }
+
+    // Transform the raw YouTube data into a clean format for your app
+    const results = (data.items || []).map((item) => ({
+      id: item.id.videoId,
+      title: item.snippet.title,
+      thumb:
+        item.snippet.thumbnails?.high?.url ||
+        item.snippet.thumbnails?.default?.url,
+      channel: item.snippet.channelTitle,
+    }));
+
+    // 3. Save to Firestore so it's free next time!
+    if (results.length > 0) {
+      await setDoc(cacheRef, {
+        results,
+        timestamp: Date.now(),
+        query: cacheId,
+      });
+    }
+
+    return results;
+  } catch (error) {
+    console.error("Service Error:", error);
+    return [];
+  }
 };

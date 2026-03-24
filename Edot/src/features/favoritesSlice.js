@@ -21,8 +21,10 @@ export const fetchFavorites = createAsyncThunk("favs/fetch", async (userId) => {
 export const toggleFavorite = createAsyncThunk(
   "favs/toggle",
   async ({ song, userId }, { getState }) => {
-    const { favorites } = getState();
-    const existing = favorites.items.find((f) => f.id === song.id);
+    const state = getState();
+    // FIX: Point to .items so .find() works
+    const favoriteItems = state.favorites.items;
+    const existing = favoriteItems.find((f) => f.id === song.id);
 
     if (existing) {
       await deleteDoc(doc(db, "favorites", existing.firebaseId));
@@ -39,10 +41,12 @@ export const toggleFavorite = createAsyncThunk(
 const favoritesSlice = createSlice({
   name: "favorites",
   initialState: { items: [], loading: false },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.items = action.payload;
+        state.loading = false;
       })
       .addCase(toggleFavorite.fulfilled, (state, action) => {
         if (action.payload.type === "remove") {
