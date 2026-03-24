@@ -1,26 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+:root {
+  --primary-green: #10b981; /* Emerald 500 */
+  --deep-forest: #064e3b;   /* Emerald 900 */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-accent: rgba(16, 185, 129, 0.2);
+}
 
 body {
   margin: 0;
-  /* A soft, spiritual gradient background */
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  /* Deep Green Gradient */
+  background: radial-gradient(circle at top left, #064e3b 0%, #020617 100%);
   color: white;
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
+/* The "Glass" Logic */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-green {
+  background: var(--glass-accent);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Smooth hover for song cards */
+.glass-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-4px);
-  transition: all 0.3s ease;
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--primary-green);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Custom Scrollbar for the Green Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--deep-forest);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-green);
 }

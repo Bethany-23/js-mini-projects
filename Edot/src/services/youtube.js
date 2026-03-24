@@ -20,7 +20,7 @@ export const fetchSongsWithCache = async (query) => {
 
    
     console.log(`☁️ Fetching from YouTube API for: ${cacheId}`);
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}+orthodox+harp&type=video&key=${API_KEY}&maxResults=10`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}+orthodox+begena&type=video&key=${API_KEY}&maxResults=10`;
 
     const res = await fetch(url);
     const data = await res.json();

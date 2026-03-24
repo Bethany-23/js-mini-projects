@@ -9,7 +9,7 @@ export default function Details() {
 
   const user = useSelector((state) => state.auth?.user);
 
-  // FIX: Point to state.favorites.items
+  
   const song = useSelector((state) =>
     state.favorites.items.find((s) => s.id === id),
   );
