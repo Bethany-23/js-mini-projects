@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import SongCard from "../components/SongCard";
+import SongCard from "../components/songCard.jsx";
 
 export default function Favorites() {
   const { items } = useSelector((state) => state.favorites);
