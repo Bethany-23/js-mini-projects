@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "edot-57c6c"
-  }
+  },
+  "targets": {
+    "edot-57c6c": {
+      "hosting": {
+        "edot": [
+          "edot-57c6c"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

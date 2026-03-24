@@ -5,7 +5,7 @@ import { auth } from "../services/firebase";
 
 const CATEGORIES = ["Tizita", "Selamta", "Cherinetih"];
 
-export default function Nav({ onCategoryClick }) {
+export  function Nav({ onCategoryClick }) {
   const user = useSelector((state) => state.auth.user);
 
   return (

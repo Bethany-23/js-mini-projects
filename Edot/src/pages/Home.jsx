@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchSongsWithCache } from "../services/youtube";
 import SongCard from "../components/SongCard";
 
-export default function Home() {
+export  function Home() {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentSearch, setCurrentSearch] = useState("Orthodox Harp");
