@@ -41,7 +41,7 @@ export const fetchSongsWithCache = async (query) => {
       channel: item.snippet.channelTitle,
     }));
 
-    // 3. Save to Firestore so it's free next time!
+    // Save to Firestore so it's free next time
     if (results.length > 0) {
       await setDoc(cacheRef, {
         results,

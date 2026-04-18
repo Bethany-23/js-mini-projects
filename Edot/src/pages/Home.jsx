@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { fetchSongsWithCache } from "../services/youtube";
 import SongCard from "../components/songCard.jsx";
 
+import { useEffect } from "react"
+
 export default function Home({ category }) {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,3 +45,5 @@ export default function Home({ category }) {
     </div>
   );
 }
+
+

@@ -3,6 +3,7 @@ import authReducer from "../features/authSlice";
 import favoritesReducer from "../features/favoritesSlice";
 import commentsReducer from "../features/commentsSlice";
 
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -10,3 +11,4 @@ export const store = configureStore({
     comments: commentsReducer,
   },
 });
+
