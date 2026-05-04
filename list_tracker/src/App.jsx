@@ -47,33 +47,39 @@ import { useState } from "react";
 
 
 
-
-
-
-
-
 function App(){
 
-  const [task, setTask] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const[tasks, setTasks] = useState([])
+  const[input, setInput] = useState("")
 
   const addTask = () =>{
- 
+
   }
-  return (
+
+  const removeTask = () =>{
+    if (input.trim() !== ""){
+      const newTask = [...tasks, input];
+      setTasks(newTask);
+      setInput("");
+      localStorage.getItem()
+    }
+
+  }
+
+  return(
     <>
-      <h1>Hello, enter your tasks below</h1>
+    <h1> These are the list of tasks</h1>
 
-      <input
-        type="text"
-        placeholder="enter your task..."
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
-
-      <button onClick={addTask}>Add Task</button>
+    <input 
+    type="text"
+    placeholder="Enter your task here"
+    value={input}
+    onChange={(e)=>setInput(e.target.value)}
+     />
+    <button onClick={addTask}> Add Task</button>
     </>
-  );
+  )
+
 }
 
 export default App;
