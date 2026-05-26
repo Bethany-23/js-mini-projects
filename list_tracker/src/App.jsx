@@ -1,51 +1,46 @@
 import { useState } from "react";
 
+function app(){
 
-function App(){
-
-  const[tasks, setTasks] = useState([])
-  const[input, setInput] = useState("")
+  const [input, setInput] = useState("");
+  const [tasks, setTasks] = useState([])
 
   const addTask = () =>{
-      if(input.trim() !== ""){
-        const newTask = [...tasks, input];
-        setTasks(newTask)
-        setInput("")
-        localStorage.setItem("myTodoList", JSON.stringify(newTask))
-      };
+    if(input.trim() !== ""){
+      const newTask = [...tasks, input]
+      setTasks(newTask);
+      setInput("")
+      localStorage.setItem("myTodoList", JSON.stringify(newTask))
     }
+  }
 
   const removeTask = (indexToRemove) =>{
-    const updatedTask = tasks.filter((_, index) => index !== indexToRemove);
-    setTasks(updatedTask);
-    }
-
+    const updatedTask = tasks.filter((_,index) => index !== indexToRemove);
+    setTasks(updatedTask)
+  }
   return(
     <>
-    <h1> These are the list of tasks</h1>
-
+    <h1> These are the task </h1>
     <input 
-    type="text"
-    placeholder="Enter your task here"
-    value={input}
-    onChange={(e)=>setInput(e.target.value)}
-     />
-    <button onClick={addTask}> Add Task</button>
+     type="text"
+     placeholder="Enter your tasks here"
+     value={input}
+     onChange={(e) => setInput(e.target.value)}/>
 
-    <ul>
-      {tasks.map((t, index)=>(
+     <button onClick={addTask}>addTask</button>
+
+     <ul>
+      {tasks.map((t,index) => (
         <li>
           {t}
-          <button onClick={()=>removeTask(index)}> Remove</button>
+          <button onClick={() => removeTask(index)}>DeleteTask</button>
         </li>
       ))}
-    </ul>
-
+     </ul>
     </>
-  );
 
+  
+  )
 }
 
-export default App;
-
-
+export default app;
